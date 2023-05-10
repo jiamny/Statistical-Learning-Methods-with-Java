@@ -78,7 +78,8 @@ class SVM {
         }
 
         try (NDManager manager = NDManager.newBaseManager()) {
-            NDArray data = manager.create(trainDataMat.toArray()).stopGradient();
+            NDArray data = manager.create(trainDataMat.toArray());
+            data.setRequiresGradient(false);
 
             // 大循环遍历Xi，Xi为式7.90中的x
             for(int  i : range(m) ) {

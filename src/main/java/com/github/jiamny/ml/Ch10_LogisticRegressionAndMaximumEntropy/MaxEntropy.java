@@ -1,6 +1,5 @@
 package com.github.jiamny.ml.Ch10_LogisticRegressionAndMaximumEntropy;
 
-import com.github.jiamny.ml.utils.DataFrameHelper;
 import org.apache.commons.csv.CSVFormat;
 import smile.data.DataFrame;
 import smile.io.Read;

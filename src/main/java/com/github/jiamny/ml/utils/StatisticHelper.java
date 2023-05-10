@@ -124,7 +124,12 @@ public class StatisticHelper {
         return idx;
     }
 
-    public static int sign( double x) {
+    /**
+     * x > 0 => 1; x == 0 => 0; x < 0 => -1
+     * @param x
+     * @return
+     */
+   public static int sign( double x) {
         if( x > 0 )
             return 1;
         else if( x < 0 )
@@ -132,4 +137,16 @@ public class StatisticHelper {
         else
             return 0;
     }
+
+    public static double[] ShuffleArray(double[] array){
+        Random rand = new Random();  // Random value generator
+        for (int i=0; i<array.length; i++) {
+            int randomIndex = rand.nextInt(array.length);
+            double temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+        return array;
+    }
+
 }
