@@ -13,7 +13,7 @@ public class StatisticHelper {
         for (i = 0; i < n; ++i) {
             int count = 0;
             for (j = 0; j < n; ++j) {
-                if (a[j].compareTo(a[i]) == 0 )
+                if (a[j].compareTo(a[i]) == 0)
                     ++count;
             }
 
@@ -25,17 +25,17 @@ public class StatisticHelper {
         return maxValue;
     }
 
-    public static void printVectorElements(double [] ax) {
+    public static void printVectorElements(double[] ax) {
         Arrays.stream(ax).forEach(num -> System.out.print(num + " "));
         System.out.println();
     }
 
-    public static void printVectorElements(int [] ax) {
+    public static void printVectorElements(int[] ax) {
         Arrays.stream(ax).forEach(num -> System.out.print(num + " "));
         System.out.println();
     }
 
-    public static void printVectorObjects(Object [] ax) {
+    public static void printVectorObjects(Object[] ax) {
         Arrays.stream(ax).forEach(num -> System.out.print(num + " "));
         System.out.println();
     }
@@ -60,9 +60,9 @@ public class StatisticHelper {
             return null;
         }
         Map.Entry<K, V> mv;
-        for (mv = entries.next(); entries.hasNext();) {
+        for (mv = entries.next(); entries.hasNext(); ) {
             Map.Entry<K, V> value = entries.next();
-            if( max ) {
+            if (max) {
                 if (comp.compare(value.getValue(), mv.getValue()) > 0) {
                     mv = value;
                 }
@@ -78,13 +78,13 @@ public class StatisticHelper {
 
     public static double[] linespace(double min, double max, int points) {
         double[] d = new double[points];
-        for (int i = 0; i < points; i++){
+        for (int i = 0; i < points; i++) {
             d[i] = min + i * (max - min) / (points - 1);
         }
         return d;
     }
 
-    public static double[][]  impute(Function<double[][], double[][]> imputer, double[][] data) throws Exception {
+    public static double[][] impute(Function<double[][], double[][]> imputer, double[][] data) throws Exception {
         MathEx.setSeed(19650218); // to get repeatable results.
 /*
         int n = 0;
@@ -112,11 +112,11 @@ public class StatisticHelper {
         return imputed;
     }
 
-    public static int maxIndex(double [] data) {
+    public static int maxIndex(double[] data) {
         int idx = -1;
         double max = Double.NEGATIVE_INFINITY;
-        for( int i = 0; i < data.length; i++ ) {
-            if( max < data[i] ) {
+        for (int i = 0; i < data.length; i++) {
+            if (max < data[i]) {
                 idx = i;
                 max = data[i];
             }
@@ -126,21 +126,22 @@ public class StatisticHelper {
 
     /**
      * x > 0 => 1; x == 0 => 0; x < 0 => -1
+     *
      * @param x
      * @return
      */
-   public static int sign( double x) {
-        if( x > 0 )
+    public static int sign(double x) {
+        if (x > 0)
             return 1;
-        else if( x < 0 )
+        else if (x < 0)
             return -1;
         else
             return 0;
     }
 
-    public static double[] ShuffleArray(double[] array){
+    public static double[] ShuffleArray(double[] array) {
         Random rand = new Random();  // Random value generator
-        for (int i=0; i<array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             int randomIndex = rand.nextInt(array.length);
             double temp = array[i];
             array[i] = array[randomIndex];
@@ -149,4 +150,17 @@ public class StatisticHelper {
         return array;
     }
 
+    public static double sum(double[] ax) {
+        double sum = 0.0;
+        for(int i = 0; i < ax.length; i++)
+            sum += ax[i];
+        return sum;
+    }
+
+    public static long sum(int[] ax) {
+        long sum = 0;
+        for(int i = 0; i < ax.length; i++)
+            sum += ax[i];
+        return sum;
+    }
 }
