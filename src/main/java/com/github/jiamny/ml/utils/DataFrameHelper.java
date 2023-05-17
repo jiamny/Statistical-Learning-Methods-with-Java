@@ -33,6 +33,13 @@ public class DataFrameHelper {
         return rg;
     }
 
+    public static int [] range(int start, int end) {
+        int size = (end - start);
+        int [] rg = new int[size];
+        for( int i = start; i < end; i++ )
+            rg[i-1] = i;
+        return rg;
+    }
 
     /**
      * Convert double array to int array
@@ -91,5 +98,45 @@ public class DataFrameHelper {
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static int bisectLeft(double[] nums, double target) {
+        int i = 0;
+        int j = nums.length - 1;
+        while (i <= j) {
+            int m = i + (j-i) / 2;
+            if (nums[m] >= target) {
+                j = m - 1;
+            } else {
+                i = m + 1;
+            }
+        }
+        return i;
+    }
+
+    public static int bisectRight(double [] nums, double target) {
+        int i = 0;
+        int j = nums.length - 1;
+        while (i <= j) {
+            int m = i + (j-i) / 2;
+            if (nums[m] <= target) {
+                i = m + 1;
+            } else {
+                j = m - 1;
+            }
+        }
+        return j+1;
+    }
+
+    public static double roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
+
+    public static int [] doubleToInt(double [] data) {
+        int [] res = new int[data.length];
+        for( int i = 0; i < data.length; i++ )
+            res[i] = (int) data[i];
+        return res;
     }
 }

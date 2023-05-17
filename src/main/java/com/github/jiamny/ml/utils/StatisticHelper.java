@@ -53,6 +53,19 @@ public class StatisticHelper {
         return numbers;
     }
 
+    public static int [] cumSum(int [] numbers) {
+        // variable
+        int sum = 0;
+
+        // traverse through the array
+        for (int i = 0; i < numbers.length; i++) {
+            sum += numbers[i];  // find sum
+            numbers[i] = sum;   // replace
+        }
+        // return
+        return numbers;
+    }
+
     public static <K, V> Map.Entry<K, V> maxOrmin(Map<K, V> map, Comparator<V> comp, boolean max) {
         Iterator<Map.Entry<K, V>> entries = map.entrySet().iterator();
 

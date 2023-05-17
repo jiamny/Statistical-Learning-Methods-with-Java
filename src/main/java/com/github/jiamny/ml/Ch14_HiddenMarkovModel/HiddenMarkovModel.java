@@ -144,6 +144,7 @@ public class HiddenMarkovModel {
                     Adata[statuDict.get(wordLabel.get(i - 1))][statuDict.get(wordLabel.get(i))] += 1;
                 }
             }
+            in.close();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -223,6 +224,7 @@ public class HiddenMarkovModel {
                 // 将该行放入文章列表中
                 articles.add(line);
             }
+            in.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

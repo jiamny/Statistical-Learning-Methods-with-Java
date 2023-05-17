@@ -29,3 +29,5 @@ Practical methods for machine learning with Java
 - [Statistical learning method](https://github.com/Dod-o/Statistical-Learning-Method_Code)
 
 - [Machine Learning with PyTorch and Scikit-Learn](https://github.com/rasbt/machine-learning-book)
+
+-[手写李航《统计学习方法》书中全部算法](https://github.com/ChangxingJiang/Lihang-Statistical-learning-methods-Code)

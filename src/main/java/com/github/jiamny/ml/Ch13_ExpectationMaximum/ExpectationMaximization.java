@@ -46,7 +46,7 @@ public class ExpectationMaximization {
         //dataSet.extend(data1)
         System.arraycopy(d2, 0, dataSet, d1.length, d2.length);
         // 对总的数据集进行打乱（其实不打乱也没事，只不过打乱一下直观上让人感觉已经混合了
-        //  读者可以将下面这句话屏蔽以后看看效果是否有差别）
+        // 读者可以将下面这句话屏蔽以后看看效果是否有差别）
         // random.shuffle(dataSet);
         dataSet = ShuffleArray(dataSet);
 
