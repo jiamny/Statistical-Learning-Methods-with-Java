@@ -98,8 +98,8 @@ public class Introduction {
             dlpt.add(x5line);
             dlpt.add(x7line);
             dlpt.add(x9line);
-            dlpt.window();
             dlpt.setLegendVisible(true);
+            dlpt.window();
             Thread.sleep(3000);
             dlpt.clear();
         } catch(Exception e) {

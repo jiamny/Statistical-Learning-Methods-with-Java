@@ -4,9 +4,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import smile.data.DataFrame;
+import smile.io.CSV;
 import smile.io.Read;
 import smile.math.matrix.Matrix;
 
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.DoubleStream;
 
@@ -37,7 +39,7 @@ public class DataFrameHelper {
         int size = (end - start);
         int [] rg = new int[size];
         for( int i = start; i < end; i++ )
-            rg[i-1] = i;
+            rg[i-start] = i;
         return rg;
     }
 
@@ -138,5 +140,62 @@ public class DataFrameHelper {
         for( int i = 0; i < data.length; i++ )
             res[i] = (int) data[i];
         return res;
+    }
+
+    public static DataFrame loadIrisData(String fileName) {
+        // ----------------------------------------------
+        DataFrame iris_data = null;
+        try {
+            CSV rd = new CSV();
+            iris_data = rd.read(Paths.get(fileName));
+            System.out.println(iris_data.schema());
+            String [] names = {"sepallength","sepalwidth","petallength","petalwidth"};
+            String [] cnames = {"class"};
+
+            int [] label_idx = new int[1];
+            label_idx[0] = iris_data.ncol() - 1;
+            DataFrame irisClass = iris_data.select(label_idx);
+
+            int [][] c_data = new int[iris_data.nrow()][1];
+            String c = "";
+            int cls = -1;
+            for(int i = 0; i < iris_data.nrow(); i++ ) {
+                if( irisClass.getString(i, 0).equalsIgnoreCase(c) )
+                    c_data[i][0] = cls;
+                else {
+                    cls++;
+                    c = irisClass.getString(i, 0);
+                    c_data[i][0] = cls;
+                }
+            }
+            irisClass = DataFrame.of(c_data, cnames);
+
+            int [] data_idx = new int[iris_data.ncol()-1];
+            for(int i = 0; i < (iris_data.ncol()-1); i++ )
+                data_idx[i] = i;
+            DataFrame data = iris_data.select(data_idx);
+
+            iris_data = DataFrame.of(data.toArray(), names);
+            iris_data = iris_data.merge(irisClass);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return iris_data;
+    }
+
+    public static double euler_distance(Matrix point1, Matrix point2) {
+        // 计算两点之间的欧拉距离，支持多维
+        Matrix d = point1.sub(point2);
+        double distance = 0.0;
+        if( d.nrow() > 1 ) {
+            // tranpose  1xn => nx1
+            distance = d.mm(d.transpose()).get(0, 0);
+        } else {
+            // tranpose  nx1 => 1xn
+            distance = d.transpose().mm(d).get(0, 0);
+        }
+        //for a, b in zip(point1, point2):
+        //distance += math.pow(a - b, 2)
+        return Math.sqrt(distance);
     }
 }

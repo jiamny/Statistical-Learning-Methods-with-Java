@@ -8,6 +8,7 @@ public class ArffFileDataSmile {
     public static void main(String [] args) {
         try {
             var iris = Read.arff("data/iris.arff");
+            System.out.println(iris.get(0));
             var canvas = ScatterPlot.of(iris, "sepallength", "sepalwidth", "class", '*').canvas();
             canvas.setAxisLabels("sepallength", "sepalwidth");
             canvas.setTitle("Iris data");
