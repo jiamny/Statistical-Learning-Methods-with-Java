@@ -160,15 +160,15 @@ public class DataFrameHelper {
             String c = "";
             int cls = -1;
             for(int i = 0; i < iris_data.nrow(); i++ ) {
-                if( irisClass.getString(i, 0).equalsIgnoreCase(c) )
+                if( irisClass.getString(i, 0).equalsIgnoreCase(c) ) {
                     c_data[i][0] = cls;
-                else {
+                } else {
                     cls++;
                     c = irisClass.getString(i, 0);
                     c_data[i][0] = cls;
                 }
             }
-            irisClass = DataFrame.of(c_data, cnames);
+            DataFrame irisCat = DataFrame.of(c_data, cnames);
 
             int [] data_idx = new int[iris_data.ncol()-1];
             for(int i = 0; i < (iris_data.ncol()-1); i++ )
@@ -176,6 +176,7 @@ public class DataFrameHelper {
             DataFrame data = iris_data.select(data_idx);
 
             iris_data = DataFrame.of(data.toArray(), names);
+            iris_data = iris_data.merge(irisCat);
             iris_data = iris_data.merge(irisClass);
         } catch(Exception e) {
             e.printStackTrace();

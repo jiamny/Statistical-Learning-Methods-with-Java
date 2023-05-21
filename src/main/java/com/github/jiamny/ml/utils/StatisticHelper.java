@@ -137,6 +137,18 @@ public class StatisticHelper {
         return idx;
     }
 
+    public static int minIndex(double[] data) {
+        int idx = -1;
+        double min = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < data.length; i++) {
+            if (min > data[i]) {
+                idx = i;
+                min = data[i];
+            }
+        }
+        return idx;
+    }
+
     /**
      * x > 0 => 1; x == 0 => 0; x < 0 => -1
      *
@@ -175,5 +187,22 @@ public class StatisticHelper {
         for(int i = 0; i < ax.length; i++)
             sum += ax[i];
         return sum;
+    }
+
+    public static void helper(List<int[]> combinations, int data[], int start, int end, int index) {
+        if (index == data.length) {
+            int[] combination = data.clone();
+            combinations.add(combination);
+        } else if (start <= end) {
+            data[index] = start;
+            helper(combinations, data, start + 1, end, index + 1);
+            helper(combinations, data, start + 1, end, index);
+        }
+    }
+
+    public static List<int[]> combGenerate(int n, int r) {
+        List<int[]> combinations = new ArrayList<>();
+        helper(combinations, new int[r], 0, n-1, 0);
+        return combinations;
     }
 }

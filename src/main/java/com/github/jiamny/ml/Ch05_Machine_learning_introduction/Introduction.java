@@ -7,6 +7,7 @@ import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import smile.data.DataFrame;
 import smile.data.formula.Formula;
 import smile.math.MathEx;
+import smile.plot.swing.Legend;
 import smile.plot.swing.Line;
 import smile.plot.swing.LinePlot;
 import smile.regression.LinearModel;
@@ -63,7 +64,8 @@ public class Introduction {
 
         ArrayList<ArrayList<Double>> prd = new ArrayList<>();
 
-        for( int degree = 1; degree < 9; degree += 2 ) {
+        for( int degree = 1; degree <= 10; degree += 3 ) {
+            System.out.println("M = " + degree);
             // Instantiate a third-degree polynomial fitter.
             final PolynomialCurveFitter fitter = PolynomialCurveFitter.create(degree);
 
@@ -84,24 +86,48 @@ public class Introduction {
         try {
             double[][] data = MathExHelper.arrayBindByCol(x, y_);
             Line dline = new Line(data, Line.Style.SOLID, 'o', Color.BLUE);
-            double[][] dt3 = MathExHelper.arrayBindByCol(x, prd.get(0).stream().mapToDouble(i->i).toArray());
-            Line x3line = new Line(dt3, Line.Style.DASH, '*', Color.RED);
-            double[][] dt5 = MathExHelper.arrayBindByCol(x, prd.get(1).stream().mapToDouble(i->i).toArray());
-            Line x5line = new Line(dt5, Line.Style.DOT_DASH, '+', Color.CYAN);
+            double[][] dt1 = MathExHelper.arrayBindByCol(x, prd.get(0).stream().mapToDouble(i->i).toArray());
+            Line x1line = new Line(dt1, Line.Style.DASH, '*', Color.RED);
+            double[][] dt4 = MathExHelper.arrayBindByCol(x, prd.get(1).stream().mapToDouble(i->i).toArray());
+            Line x4line = new Line(dt4, Line.Style.DOT_DASH, '+', Color.GREEN);
             double[][] dt7 = MathExHelper.arrayBindByCol(x, prd.get(2).stream().mapToDouble(i->i).toArray());
-            Line x7line = new Line(dt7, Line.Style.LONG_DASH, 's', Color.GREEN);
-            double[][] dt9 = MathExHelper.arrayBindByCol(x, prd.get(3).stream().mapToDouble(i->i).toArray());
-            Line x9line = new Line(dt9, Line.Style.DOT, 'x', Color.MAGENTA);
+            Line x7line = new Line(dt7, Line.Style.LONG_DASH, 's', Color.CYAN);
+            double[][] dt10 = MathExHelper.arrayBindByCol(x, prd.get(3).stream().mapToDouble(i->i).toArray());
+            Line x10line = new Line(dt10, Line.Style.DOT, 'x', Color.MAGENTA);
 
-            var dlpt = new LinePlot(dline).canvas();
-            dlpt.add(x3line);
-            dlpt.add(x5line);
-            dlpt.add(x7line);
-            dlpt.add(x9line);
+            // M=1
+            Line [] lines = {dline, x1line};
+            Legend [] lgd = {new Legend("real", Color.BLUE),
+                    new Legend("fitted curve", Color.RED)};
+            var dlpt = new LinePlot(lines, lgd).canvas();
             dlpt.setLegendVisible(true);
+            dlpt.setTitle("M = 1");
             dlpt.window();
             Thread.sleep(3000);
             dlpt.clear();
+
+            // M=4
+            Line [] lines2 = {dline, x4line};
+            Legend [] lgd2 = {new Legend("real", Color.BLUE),
+                    new Legend("fitted curve", Color.GREEN)};
+            var dlpt2 = new LinePlot(lines2, lgd2).canvas();
+            dlpt2.setLegendVisible(true);
+            dlpt2.setTitle("M = 4");
+            dlpt2.window();
+            Thread.sleep(3000);
+            dlpt2.clear();
+
+            // M = 10
+            Line [] lines3 = {dline, x10line};
+            Legend [] lgd3 = {new Legend("real", Color.BLUE),
+                    new Legend("fitted curve", Color.MAGENTA)};
+            var dlpt3 = new LinePlot(lines3, lgd3).canvas();
+            dlpt3.setLegendVisible(true);
+            dlpt3.setTitle("M = 4");
+            dlpt3.window();
+            Thread.sleep(3000);
+            dlpt3.clear();
+
         } catch(Exception e) {
             e.printStackTrace();
         }
