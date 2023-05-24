@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.Function;
 import smile.math.MathEx;
 
+import static com.github.jiamny.ml.utils.DataFrameHelper.range;
+
 public class StatisticHelper {
     public static <T extends Comparable<T>> T mode(T[] a, T initV) {
         T maxValue = initV;
@@ -204,5 +206,45 @@ public class StatisticHelper {
         List<int[]> combinations = new ArrayList<>();
         helper(combinations, new int[r], 0, n-1, 0);
         return combinations;
+    }
+
+    public static HashMap<Integer, Double> sortByValue(HashMap<Integer, Double> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<Integer, Double> > list =
+                new LinkedList<Map.Entry<Integer, Double> >(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Double> >() {
+            public int compare(Map.Entry<Integer, Double> o1,
+                               Map.Entry<Integer, Double> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<Integer, Double> temp = new LinkedHashMap<Integer, Double>();
+        for (Map.Entry<Integer, Double> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
+    public static int [] argSort(double [] d) {
+        HashMap<Integer, Double> hm = new HashMap<>();
+        for(int i : range(d.length)) {
+            hm.put(i, d[i]);
+        }
+        hm = sortByValue(hm);
+        List<Map.Entry<Integer, Double> > list =
+                new LinkedList<Map.Entry<Integer, Double> >(hm.entrySet());
+        int [] idx = new int[d.length];
+        int i = 0;
+        for (Map.Entry<Integer, Double> aa : list) {
+            idx[i] = aa.getKey();
+            i++;
+        }
+        return idx;
     }
 }
