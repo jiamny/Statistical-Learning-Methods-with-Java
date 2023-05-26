@@ -3,6 +3,8 @@ package com.github.jiamny.ml.Ch03_Data_retrieving_and_storing;
 import org.apache.commons.csv.CSVFormat;
 import smile.io.Read;
 
+import java.util.Arrays;
+
 public class TextAndCsvDataSmile {
 
     public static void main(String [] args) {
