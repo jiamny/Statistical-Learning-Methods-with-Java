@@ -32,6 +32,11 @@ public class StatisticHelper {
         System.out.println();
     }
 
+    public static void printVectorElements(double[] ax, int decimal) {
+        Arrays.stream(ax).forEach(num -> System.out.printf(String.valueOf("%." + decimal + "f "), num));
+        System.out.println();
+    }
+
     public static void printVectorElements(int[] ax) {
         Arrays.stream(ax).forEach(num -> System.out.print(num + " "));
         System.out.println();
@@ -220,6 +225,29 @@ public class StatisticHelper {
                                Map.Entry<Integer, Double> o2)
             {
                 return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<Integer, Double> temp = new LinkedHashMap<Integer, Double>();
+        for (Map.Entry<Integer, Double> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
+    public static HashMap<Integer, Double> sortByValueDesc(HashMap<Integer, Double> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<Integer, Double> > list =
+                new LinkedList<Map.Entry<Integer, Double> >(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Double> >() {
+            public int compare(Map.Entry<Integer, Double> o1,
+                               Map.Entry<Integer, Double> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
             }
         });
 
